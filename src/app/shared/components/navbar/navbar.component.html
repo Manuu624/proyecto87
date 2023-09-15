@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button routerLink="/inicio" class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>Metal App</span>
+
+  <span class="example-spacer"></span>
+
+  <!-- ENRUTAMOS PÁGINAS -->
+  <button mat-button routerLink="/inicio">Inicio</button>
+  <button mat-button routerLink="/nosotros">Nosotros</button>
+  <button mat-button routerLink="/productos">Productos</button>
+  <button mat-button routerLink="/admin">Admin</button>
+
+  <!--LOGIN-->
+  <button mat-icon-button routerLink="/register">
+    <mat-icon>person_add</mat-icon>
+  </button>
+
+  <!--PERSON OFF-->
+  <button mat-icon-button routerLink="/login">
+    <mat-icon>person_off</mat-icon>
+  </button>
+</mat-toolbar>
