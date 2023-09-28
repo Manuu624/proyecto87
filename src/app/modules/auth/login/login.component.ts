@@ -39,7 +39,7 @@ export class LoginComponent {
       this.router.navigate(['/inicio'])
     })
     .catch(error =>{
-      alert("Hubo un error al iniciar sesión :( \n"+error);
+      alert("Hubo un error al iniciar sesión \n"+error);
       console.log(credenciales.email);
     } )
   }

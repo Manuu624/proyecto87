@@ -6,6 +6,8 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -15,11 +17,13 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     InicioRoutingModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class InicioModule { }
