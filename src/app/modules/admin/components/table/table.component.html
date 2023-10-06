@@ -1,34 +1,39 @@
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Imagen</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">Precio</th>
-        <th scope="col">Acciones</th>
-        <th scope="col">Categoria</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let col of coleccionProductos">
-        <th scope="row">1</th>
-        <td><img src="{{col.imagen}}" alt="{{col.alt}}" width="100px"></td>
-        <td>{{col.nombre}}</td>
-        <td>{{col.descripcion}}</td>
-        <td>{{col.precio}}</td>
-        <td>{{col.categoria}}</td>
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Imagen</th>
+      <th scope="col">Cancion</th>
+      <th scope="col">Artista</th>
+      <th scope="col">Año</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Categoria</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let col of coleccionProductos">
+      <th scope="row">1</th>
+      <td><img src="{{col.imagen}}" width="100px"></td>
+      <td>{{col.nombre}}</td>
+      <td>{{col.descripcion}}</td>
+      <td>{{col.alt}}</td>
+      <td>${{col.precio}}</td>
+      <td>{{col.categoria}}</td>
 
-        <!--ACCIONES-->
-        <td>
-            <button id="btn-acs" type="editar" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarProducto"> <mat-icon>edit</mat-icon> </button>
-            <button id="btn-acs" type="eliminar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarProducto"> <mat-icon>delete</mat-icon> </button>
-        </td>
-    </tbody>
+      <!--ACCIONES-->
+      <td>
+        <button id="btn-acs" type="editar" class="btn btn-warning" data-bs-toggle="modal"
+          data-bs-target="#editarProducto" (click)="mostrarEditar(col)"> <mat-icon>edit</mat-icon> </button>
+        <button id="btn-acs" type="eliminar" class="btn btn-danger" data-bs-toggle="modal"
+          data-bs-target="#eliminarProducto"> <mat-icon>delete</mat-icon> </button>
+      </td>
+  </tbody>
 </table>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProducto">Agregar al carrito</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProducto">Agregar al
+  carrito</button>
 
 <!-- Modal -->
 <div class="modal fade" id="agregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -38,14 +43,14 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Ingrese un nuevo productos</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      
+
       <div [formGroup]="producto" class="modal-body">
-        
+
         <div class="mb-3">
           <label class="form-label">Ingrese nombre de la cancion</label>
-          <input class="form-control"  type="text" formControlName="nombre" placeholder="Cancion">
+          <input class="form-control" type="text" formControlName="nombre" placeholder="Cancion">
         </div>
-       
+
         <div class="mb-3">
           <label class="form-label">Ingrese imagen</label>
           <input class="form-control" type="text" formControlName="imagen" placeholder="Imagen">
@@ -69,23 +74,80 @@
 
         <div class="mb-3">
           <label class="form-label">Seleccione una categoria</label>
-            <select class="form-control" formControlName="categoria" class="form-select">
-              <option value="heavymetal">Heavy Metal</option>
-              <option value="deathmetal">Death Metal</option>
-              <option value="thrashmetal">Thrash Metal</option>
-            </select>
+          <select class="form-control" formControlName="categoria" class="form-select">
+            <option value="heavymetal">Heavy Metal</option>
+            <option value="deathmetal">Death Metal</option>
+            <option value="thrashmetal">Thrash Metal</option>
+          </select>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
+            (click)="agregarProducto()">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal para editar producto-->
+<div class="modal fade" *ngFor="let col of coleccionProductos" id="editarProducto" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar el producto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div [formGroup]="producto" class="modal-body">
+
+        <div class="mb-3">
+          <label class="form-label">Ingrese nombre de la cancion</label>
+          <input class="form-control" type="text" formControlName="nombre" placeholder="{{col.nombre}}">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Ingrese imagen</label>
+          <input class="form-control" type="text" formControlName="imagen" placeholder="{{col.imagen}}">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Ingrese artista</label>
+          <input class="form-control" type="text" formControlName="descripcion" placeholder="{{col.descripcion}}">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Ingrese letra de la cancion</label>
+          <input class="form-control" type="text" formControlName="alt" placeholder="{{col.alt}}">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Ingrese un Precio</label>
+          <input class="form-control" type="number" formControlName="precio" placeholder="{{col.precio}}">
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label">Seleccione una categoria</label>
+          <select class="form-control" formControlName="categoria" class="form-select">
+            <option value="heavymetal">Heavy Metal</option>
+            <option value="deathmetal">Death Metal</option>
+            <option value="thrashmetal">Thrash Metal</option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
+            (click)="editarProducto()">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
         </div>
 
       </div>
-
-        
-
-  
-    
-      
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" (click)="agregarProducto()">Guardar</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        
-      </div>
+    </div>
+  </div>
+</div>

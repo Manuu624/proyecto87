@@ -16,6 +16,8 @@ export class TableComponent {
   //modalVisible: boolean = false
   //eliminarVisible: boolean = false
 
+  //formulario vinculado al archivo html
+
   producto = new FormGroup({
     nombre: new FormControl('',Validators.required),
     imagen: new FormControl('',Validators.required),
@@ -57,6 +59,47 @@ export class TableComponent {
         alert("Hubo un error al cargar nuevo producto.")
       })
     }
+  }
+
+  //Editar producto, vincula al modal editar
+
+  mostrarEditar(productosSeleccionado: Producto){
+
+    /*retomamos y enviamos los valores de ese producto seleccionado, el ID no se vuelve a
+    enviar porque no se modifica*/
+
+    this.productosSeleccionado = productosSeleccionado;
+    this.producto.setValue({
+      nombre: productosSeleccionado.nombre,
+      imagen: productosSeleccionado.imagen,
+      alt: productosSeleccionado.alt,
+      descripcion: productosSeleccionado.descripcion,
+      precio: productosSeleccionado.precio,
+      categoria: productosSeleccionado.categoria
+    })
+  }
+
+  //vincula al boton "guardar cambios"
+  //recibe los valores nuevos que se ingrese en el formulario
+  editarProducto(){
+    let datos: Producto = {
+      idProducto: this.productosSeleccionado.idProducto,
+      //signo de exclamacion ! sirve para recibir valores vacios al inicializar
+      nombre: this.producto.value.nombre!,
+      imagen: this.producto.value.imagen!,
+      alt: this.producto.value.alt!,
+      descripcion: this.producto.value.descripcion!,
+      precio: this.producto.value.precio!,
+      categoria: this.producto.value.categoria!
+    }
+
+    this.servicioCrud.modificarProducto(this.productosSeleccionado.idProducto,datos)
+    .then(producto => {
+      alert("Se guardaron los cambios");
+    })
+    .catch(error => {
+      alert("Hubo un error al cambiar el producto\n"+error);
+    })
   }
 }
 

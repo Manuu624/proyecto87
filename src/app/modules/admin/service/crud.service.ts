@@ -40,4 +40,20 @@ export class CrudService {
     //pipe: funciona como tubería, retorna el nuevo arreglo
     //a: resguarda la nueva informacion y la envia
   }
+
+  modificarProducto(idProducto: string, nuevaData: Producto){
+    return this.database.collection('productos').doc(idProducto).update(nuevaData);
+  }
+
+  eliminarProduto(idProducto: string){
+    return new Promise((resolve,reject)=>{
+      try{
+        const resp = this.productosCollection.doc(idProducto).delete()
+        resolve (resp)
+      }
+      catch(error){
+        reject(error)
+      }
+    })
+  }
 }
